@@ -1,29 +1,41 @@
-import OfferCard from "../components/OfferCard"
-import { ofertas } from "../data/ofertas"
+export const metadata = {
+  title: "Ofertas destacadas de Mercado Libre | SMART SHOP ML",
+  description:
+    "Descubre ofertas destacadas y descuentos reales de Mercado Libre. Compra inteligente y ahorra.",
+};
 
-export default function OfertasPage() {
+import { getOfertasMixtas } from "../lib/mercadolibre";
+import OfferCard from "../components/OfferCard";
+
+export default async function OfertasPage() {
+  const ofertas = await getOfertasMixtas();
+
   return (
-    <main className="max-w-6xl mx-auto px-6 py-20">
-      <h1 className="text-4xl font-bold text-white mb-4">
-        Ofertas destacadas
+    <main className="max-w-6xl mx-auto px-4 py-12">
+      <h1 className="text-3xl font-bold mb-8">
+        🔥 Ofertas destacadas de Mercado Libre
       </h1>
 
-      <p className="text-neutral-400 mb-12">
-        Todas las ofertas redirigen directamente a Mercado Libre.
-        SMART SHOP ML participa en su programa de afiliados.
-      </p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {ofertas.map((oferta: any) => {
+          const descuento =
+            oferta.original_price && oferta.original_price > oferta.price
+              ? `-${Math.round(
+                  100 - (oferta.price * 100) / oferta.original_price
+                )}%`
+              : "OFERTA";
 
-      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        {ofertas.map((oferta) => (
-          <OfferCard
-            key={oferta.id}
-            titulo={oferta.titulo}
-            precio={oferta.precio}
-            descuento={oferta.descuento}
-            link={oferta.link}
-          />
-        ))}
+          return (
+            <OfferCard
+              key={oferta.id}
+              titulo={oferta.title}
+              precio={`$${oferta.price.toLocaleString("es-MX")}`}
+              descuento={descuento}
+              link={oferta.permalink}
+            />
+          );
+        })}
       </div>
     </main>
-  )
+  );
 }

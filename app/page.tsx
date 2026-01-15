@@ -1,17 +1,13 @@
-import Disclaimer from "./components/Disclaimer"
-import Header from "./components/Header"
-import Hero from "./components/Hero"
-import Features from "./components/Features"
-import Contact from "./components/Contact"
+import Hero from "./components/Hero";
+import Features from "./components/Features";
+import Disclaimer from "./components/Disclaimer";
 
 export default function Home() {
   return (
-    <>
-      <Disclaimer />
-      <Header />
+    <main className="max-w-6xl mx-auto px-4 py-12">
       <Hero />
+      <Disclaimer />
       <Features />
-      <Contact />
-    </>
-  )
+    </main>
+  );
 }
