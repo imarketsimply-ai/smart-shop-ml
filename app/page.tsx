@@ -1,13 +1,18 @@
+import Header from "./components/Header";
 import Hero from "./components/Hero";
 import Features from "./components/Features";
+import SocialProof from "./components/SocialProof";
+import Contact from "./components/Contact";
 import Disclaimer from "./components/Disclaimer";
 
 export default function Home() {
   return (
-    <main className="max-w-6xl mx-auto px-4 py-12">
+    <>
+      <Header />
       <Hero />
-      <Disclaimer />
       <Features />
-    </main>
+      <SocialProof />
+      <Contact />
+    </>
   );
 }

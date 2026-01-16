@@ -2,27 +2,28 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="w-full border-t mt-16 py-6 text-sm text-gray-500">
+    <footer className="border-t border-neutral-800 mt-16 py-8 text-sm text-neutral-400">
       <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
         <p>
-          © {new Date().getFullYear()} SMART SHOP ML. Sitio afiliado a Mercado
-          Libre.
+          © {new Date().getFullYear()}{" "}
+          <span className="font-semibold text-white">SMART SHOP ML</span>
         </p>
 
-        <div className="flex gap-4">
+        <nav className="flex gap-6">
           <Link
             href="/legal/terminos"
-            className="hover:text-gray-700 underline"
+            className="hover:text-[#FFE600] transition"
           >
             Términos y Condiciones
           </Link>
+
           <Link
             href="/legal/privacidad"
-            className="hover:text-gray-700 underline"
+            className="hover:text-[#FFE600] transition"
           >
             Política de Privacidad
           </Link>
-        </div>
+        </nav>
       </div>
     </footer>
   );
