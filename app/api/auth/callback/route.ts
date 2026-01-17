@@ -1,34 +1,9 @@
-import { exchangeCodeForToken } from "@/app/lib/mercadolibre-oauth";
+import { NextResponse } from "next/server";
 
-export async function GET(req: Request) {
-  const { searchParams } = new URL(req.url);
-  const code = searchParams.get("code");
-
-  if (!code) {
-    return new Response(
-      "<h1>❌ No se recibió código de autorización</h1>",
-      { headers: { "Content-Type": "text/html" } }
-    );
-  }
-
-  try {
-    const tokenData = await exchangeCodeForToken(code);
-
-    return new Response(
-      `
-      <h1 style="font-family:sans-serif;color:green">
-        ✅ SMART SHOP ML conectado correctamente
-      </h1>
-      <p>Access Token generado.</p>
-      <p>User ID: ${tokenData.user_id}</p>
-      <p>Ya puedes cerrar esta ventana.</p>
-      `,
-      { headers: { "Content-Type": "text/html" } }
-    );
-  } catch (error) {
-    return new Response(
-      "<h1>❌ Error al generar tokens</h1>",
-      { headers: { "Content-Type": "text/html" } }
-    );
-  }
+export async function GET() {
+  return NextResponse.json({
+    client_id: process.env.ML_CLIENT_ID ?? "NO_CLIENT_ID",
+    client_secret: process.env.ML_CLIENT_SECRET ? "OK_SECRET" : "NO_SECRET",
+    redirect_uri: process.env.ML_REDIRECT_URI ?? "NO_REDIRECT",
+  });
 }
