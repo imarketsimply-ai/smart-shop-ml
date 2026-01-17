@@ -17,18 +17,24 @@ export default async function OfertasPage() {
               <OfferSkeleton key={i} />
             ))
           : ofertas.map((oferta: any) => {
-              const descuento =
-                oferta.original_price &&
-                Math.round(
-                  100 - (oferta.price * 100) / oferta.original_price
-                ) + "% OFF";
+              let descuento = "";
+
+if (oferta.original_price && oferta.price) {
+  descuento = `-${Math.round(
+    ((oferta.original_price - oferta.price) / oferta.original_price) * 100
+  )}%`;
+}
 
               return (
                 <OfferCard
                   key={oferta.id}
                   titulo={oferta.title}
-                  precio={`$${oferta.price.toLocaleString("es-MX")}`}
-                  descuento={descuento}
+                  precio={
+  oferta.price
+    ? `$${oferta.price.toLocaleString("es-MX")}`
+    : "Precio no disponible"
+}
+                  descuento={descuento || "Oferta"}
                   link={oferta.permalink}
                 />
               );
