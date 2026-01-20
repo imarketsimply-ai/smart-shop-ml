@@ -1,9 +1,18 @@
-import { NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 
-export async function GET() {
-  return NextResponse.json({
-    client_id: process.env.ML_CLIENT_ID ?? "NO_CLIENT_ID",
-    client_secret: process.env.ML_CLIENT_SECRET ? "OK_SECRET" : "NO_SECRET",
-    redirect_uri: process.env.ML_REDIRECT_URI ?? "NO_REDIRECT",
+export async function GET(req: NextRequest) {
+  const { searchParams } = new URL(req.url);
+  const code = searchParams.get("code");
+
+  if (!code) {
+    return Response.json({
+      success: false,
+      error: "❌ No se recibió código de autorización",
+    });
+  }
+
+  return Response.json({
+    success: true,
+    code,
   });
 }
